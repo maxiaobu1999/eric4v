@@ -37,3 +37,14 @@ npm run build
 ## 路由
 1、历史模式 createWebHistory
 2、hash模式 createWebHashHistory
+
+## element plus
+npm install element-plus --save
+https://cn.element-plus.org/zh-CN/guide/installation.html
+main.js 引入
+https://cn.element-plus.org/zh-CN/guide/quickstart.html
+组件安装
+https://cn.element-plus.org/zh-CN/component/icon.html
+
+## 参考资料
+[unplugin-auto-import的使用](https://juejin.cn/post/7220258409446080568)
