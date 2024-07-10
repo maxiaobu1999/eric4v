@@ -46,8 +46,7 @@ onBeforeMount(() => {
 // 获取当前管理员信息
 const getUserInfo = () => {
   http({
-    // url: http.adornUrl('advertisement'),
-    url: http.adornUrl('user/info'),
+    url: http.adornUrl('/user/info'),
     method: 'get',
     params: http.adornParams()
   }).then(({ data }) => {
