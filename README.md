@@ -46,5 +46,10 @@ https://cn.element-plus.org/zh-CN/guide/quickstart.html
 组件安装
 https://cn.element-plus.org/zh-CN/component/icon.html
 
+## Axios
+npm install axios --save
+
+
+
 ## 参考资料
 [unplugin-auto-import的使用](https://juejin.cn/post/7220258409446080568)

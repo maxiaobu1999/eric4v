@@ -1,3 +1,4 @@
+<!--首页状态栏-->
 <template>
   <div>
     <nav class="site-navbar">

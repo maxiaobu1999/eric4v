@@ -23,9 +23,10 @@
 import MainNavbar from './main-navbar.vue'
 // import MainSidebar from './main-sidebar.vue'
 // import MainContent from './main-content.vue'
-// onBeforeMount(() => {
-//   getUserInfo()
-// })
+onBeforeMount(() => {
+  console.error('onBeforeMount ======', `${import.meta.env.VITE_APP_BASE_API}`)
+  getUserInfo()
+})
 
 // const commonStore = useCommonStore()
 // const documentClientHeight = computed(() => commonStore.documentClientHeight)
@@ -42,19 +43,20 @@ import MainNavbar from './main-navbar.vue'
 // }
 //
 // const loading = ref(true)
-// // 获取当前管理员信息
-// const getUserInfo = () => {
-//   http({
-//     url: http.adornUrl('/sys/user/info'),
-//     method: 'get',
-//     params: http.adornParams()
-//   }).then(({ data }) => {
-//     loading.value = false
-//     userStore.userId = data.userId
-//     userStore.name = data.username
-//     userStore.mobile = data.mobile
-//     userStore.shopId = data.shopId
-//     userStore.userId = data.userId
-//   }).catch(() => {})
-// }
+// 获取当前管理员信息
+const getUserInfo = () => {
+  http({
+    // url: http.adornUrl('advertisement'),
+    url: http.adornUrl('user/info'),
+    method: 'get',
+    params: http.adornParams()
+  }).then(({ data }) => {
+    // loading.value = false
+    // userStore.userId = data.userId
+    // userStore.name = data.username
+    // userStore.mobile = data.mobile
+    // userStore.shopId = data.shopId
+    // userStore.userId = data.userId
+  }).catch(() => {})
+}
 </script>
