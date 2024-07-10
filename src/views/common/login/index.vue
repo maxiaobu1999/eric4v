@@ -131,9 +131,9 @@ const login = (verifyResult) => {
       passWord: dataForm.value.password
     })
   }).then(( { data } ) => {
-    console.log('+++++++++++' + data.userName)
-    // cookie.set('Authorization', result.accessToken)
-    // router.replace({ name: 'home' })
+    console.log('+++++++++++' + data.token)
+    cookie.set('Authorization', data.token)
+    router.replace({ name: 'home' })
   }).catch((err) => {
     console.log(' error +++++++++++' + err)
     isSubmit = false

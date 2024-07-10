@@ -19,6 +19,8 @@ const http = axios.create({
  */
 http.interceptors.request.use(
     config => {
+        console.error('[http] Authorization ======', `${cookie.get('Authorization')}`)
+
         config.headers.Authorization = cookie.get('Authorization') // 请求头带上token
         // // 只针对get方式进行序列化
         // if (config.method === 'get' || config.method === 'GET') {
@@ -50,7 +52,7 @@ http.interceptors.response.use(
         // 00000 请求成功
         if (res.code == '0') {
             console.error('[http]00000 请求成功 ======')
-            return res
+            return response
             // return Promise.resolve(res)
         }
         // A00001 用于直接显示提示用户的错误,内容由输入决定
