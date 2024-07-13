@@ -110,14 +110,13 @@ const dataFormSubmit = () => {
 }
 
 const router = useRouter()
+const userStore = useUserStore()
+
 const login = (verifyResult) => {
-  console.log('========请求失败========', '========请求失败 end========')
-  if (isSubmit) {
-    return
-  }
-  console.log('========请求失败========1', '========请求失败 end========')
+  // if (isSubmit) {
+  //   return
+  // }
   isSubmit = true
-  console.log('========请求失败========2', '========请求失败 end========')
   http({
     url: http.adornUrl('/user/login/username'),
     // url: http.adornUrl('/advertisement'),
@@ -132,6 +131,7 @@ const login = (verifyResult) => {
     })
   }).then(( { data } ) => {
     console.log('+++++++++++' + data.token)
+    userStore.userId = data.data.userId
     cookie.set('Authorization', data.token)
     router.replace({ name: 'home' })
   }).catch((err) => {

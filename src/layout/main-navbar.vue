@@ -7,28 +7,24 @@
         class="site-navbar-header"
         :style="{ 'margin-right': sidebarFold ? 0 : '20px' }"
       >
-        <!--        <img-->
-        <!--          class="menu-image-logo"-->
-        <!--          :src="configuration.bsTopBarIcon"-->
-        <!--          alt="logo"-->
-        <!--        >-->
         <span
           v-if="!sidebarFold"
           class="site-navbar-lg"
         >
-          mall4j建站后台
+          eric4j建站后台
         </span>
         <span
           v-else
           class="site-navbar-mini"
           :style="fontCloseSize"
         >
-          mall4j
+          Eric4j
         </span>
       </div>
       <!--右侧数据-->
       <div class="site-navbar-content">
         <div class="navbar-content-left">
+<!--          折叠按钮-->
           <svg-icon
             class="left-item"
             icon-class="icon-zhedie"
@@ -42,7 +38,7 @@
             :show-timeout="0"
             placement="bottom"
           >
-            <span class="el-dropdown-link">{{ "userName" }}</span>
+            <span class="el-dropdown-link">{{ userName }}</span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item @click="updatePasswordHandle">
@@ -71,23 +67,23 @@ import UpdatePassword from './main-navbar-update-password.vue'
 
 const route = useRoute()
 const router = useRouter()
-// const userStore = useUserStore()
-// const userName = computed(() => userStore.name)
+const userStore = useUserStore()
+const userName = computed(() => userStore.name)
 const fontCloseSize = reactive({
   fontSize: '16px'
 })
-// const commonStore = useCommonStore()
-// const sidebarFold = computed(() => commonStore.sidebarFold)
-// const setSidebarFold = () => {
-//   const len = commonStore.selectMenu.length
-//   const flag = sessionStorage.getItem('isExpand')
-//   if ((route.path === '/home' || len === 1) && flag === '0') {
-//     commonStore.updateSidebarFold(true)
-//   } else {
-//     const foldFlag = sidebarFold.value
-//     commonStore.updateSidebarFold(!foldFlag)
-//   }
-// }
+const commonStore = useCommonStore()
+const sidebarFold = computed(() => commonStore.sidebarFold)
+const setSidebarFold = () => {
+  const len = commonStore.selectMenu.length
+  const flag = sessionStorage.getItem('isExpand')
+  if ((route.path === '/home' || len === 1) && flag === '0') {
+    commonStore.updateSidebarFold(true)
+  } else {
+    const foldFlag = sidebarFold.value
+    commonStore.updateSidebarFold(!foldFlag)
+  }
+}
 
 const logoutHandle = () => {
   ElMessageBox.confirm('确定进行[退出]操作?', '提示', {
@@ -117,6 +113,15 @@ const updatePasswordHandle = () => {
     updatePassowrdRef.value?.init()
   })
 }
+
+onBeforeMount(() => {
+  console.log(`[main-navbar] onBeforeMount`)
+})
+onMounted(() => {
+  console.log(`[main-navbar] onMounted`)
+  console.log(`[main-navbar] onMounted: userName = `, userName.value)
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -164,10 +169,4 @@ const updatePasswordHandle = () => {
     }
   }
 }
-//.menu-image-logo {
-//  object-fit: contain;
-//  height: 18px;
-//  width: 59px;
-//  margin-right: 10px;
-//}
 </style>
