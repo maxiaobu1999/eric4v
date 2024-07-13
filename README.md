@@ -54,5 +54,8 @@ npm install axios --save
 [Pinia](https://pinia.vuejs.org/zh/core-concepts/) 
 Vuex 旧
 
+## avue
+https://avuejs.com/docs/installation.html
+
 ## 参考资料
 [unplugin-auto-import的使用](https://juejin.cn/post/7220258409446080568)

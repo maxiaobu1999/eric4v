@@ -21,7 +21,7 @@ export const tableOption = {
   },
   column: [{
     label: '产品名字',
-    prop: 'prodName',
+    prop: 'name',
     search: true
   }, {
     label: '商品原价',

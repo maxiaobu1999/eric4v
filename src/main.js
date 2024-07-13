@@ -9,6 +9,9 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+import Avue from '@smallwei/avue'
+import '@smallwei/avue/lib/index.css'
+
 // 全局样式
 import '@/styles/index.scss'
 // svg
@@ -23,6 +26,9 @@ app.use(router)
 
 // 注册应用范围内可用的资源
 app.component('SvgIcon', svgIcon)
+
+// Avue
+app.use(Avue)
 
 app.use(ElementPlus)
 

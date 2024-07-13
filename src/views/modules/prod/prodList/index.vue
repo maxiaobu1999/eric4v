@@ -86,25 +86,27 @@ const getDataList = (pageParam, params, done) => {
   console.log(`[prodList index.vue] getDataList`)
 
   http({
-    url: http.adornUrl('/prod/prod/page'),
+    url: http.adornUrl('/prod/page'),
     method: 'get',
     params: http.adornParams(
       Object.assign(
         {
-          current: pageParam == null ? page.currentPage : pageParam.currentPage,
-          size: pageParam == null ? page.pageSize : pageParam.pageSize
+          pageNum: pageParam == null ? page.currentPage : pageParam.currentPage,
+          pageSize: pageParam == null ? page.pageSize : pageParam.pageSize
         },
         params
       )
     )
   })
     .then(({ data }) => {
-      dataList.value = data.records
+      dataList.value = data.data
       for (const key in dataList.value) {
         // eslint-disable-next-line no-prototype-builtins
         if (dataList.value.hasOwnProperty(key)) {
           const element = dataList.value[key]
-          element.imgs = element.imgs.split(',')[0]
+          if (element.imgs) {
+            element.imgs = element.imgs.split(',')[0];
+          }
         }
       }
       page.total = data.total
