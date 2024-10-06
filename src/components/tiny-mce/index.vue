@@ -1,4 +1,4 @@
-<!--添加商品 商品详情-->
+<!--富文本编辑器 添加商品 商品详情-->
 <template>
   <div class="components-tiny-mce">
     <div
@@ -8,7 +8,7 @@
       <Editor
         :id="props.id"
         :init="init"
-        api-key="i6mv006qcwsfu1t7ebisntg5w261vpowkwirnx9cnse3ho5o"
+        api-key="w23wf781jnd8m5ry680s2z4kd0cjdt75hcplc21683x1y82z"
       />
       <!-- 增加图片区域 -->
       <div
@@ -40,7 +40,7 @@ import Editor from '@tinymce/tinymce-vue'
 import $cookie from 'vue-cookies'
 
 const uploadHeaders = { Authorization: $cookie.get('Authorization') }
-const uploadAction = http.adornUrl('/admin/file/upload/element')
+const uploadAction = http.adornUrl('/upload/prod')
 
 const props = defineProps({
   modelValue: {

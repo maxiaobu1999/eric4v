@@ -29,8 +29,7 @@ import $cookie from 'vue-cookies'
 import {ElMessage} from 'element-plus'
 
 const uploadHeaders = {
-  Authorization: $cookie.get('authorization'),
-  'Accept': '*/*'
+  Authorization: $cookie.get('authorization')
 }
 const uploadAction = http.adornUrl('/upload/prod')
 const props = defineProps({
@@ -42,7 +41,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
-const resourcesUrl = import.meta.env.VITE_IMAGE_BASE_API
+const resourcesUrl = import.meta.env.VITE_APP_RESOURCES_URL
 
 const imageList = computed(() => {
   const res = []

@@ -101,7 +101,7 @@ const getDataList = (pageParam, params, done) => {
   })
       .then(({data}) => {
         data.data.forEach(item => {
-          item.pic  = import.meta.env.VITE_IMAGE_BASE_API + item.pic
+          item.pic  = import.meta.env.VITE_APP_RESOURCES_URL + item.pic
         })
         dataList.value = data.data
         for (const key in dataList.value) {
