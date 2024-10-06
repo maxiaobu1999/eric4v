@@ -14,7 +14,11 @@ export function getUUID () {
  * @param {*} key
  */
 export function isAuth (key) {
+  return true
   const authorities = JSON.parse(sessionStorage.getItem('Authorities') || '[]')
+  console.log('[utils/index] isAuth ======', authorities)
+  console.log('[utils/index] key ======', key)
+
   if (authorities.length) {
     for (const i in authorities) {
       const element = authorities[i]
@@ -30,7 +34,7 @@ export function isAuth (key) {
  * 清除登录信息
  */
 export function clearLoginInfo () {
-  cookie.remove('Authorization')
+  cookie.remove('authorization')
   router.options.isAddDynamicMenuRoutes = false
 }
 

@@ -1,14 +1,12 @@
-import './assets/main.css'
-
-import {createApp} from 'vue'
-import {createPinia} from 'pinia'
-
+import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-
+import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
+import moment from 'moment'
 import 'element-plus/dist/index.css'
-
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import router from '@/router'
+import locale from 'element-plus/lib/locale/lang/zh-cn'
 import Avue from '@smallwei/avue'
 import '@smallwei/avue/lib/index.css'
 
@@ -18,11 +16,27 @@ import '@/styles/index.scss'
 import 'virtual:svg-icons-register'
 import svgIcon from '@/icons/SvgIcon.vue'
 
+moment.locale('zh-cn', {
+    longDateFormat: {
+        LT: 'HH:mm',
+        LTS: 'HH:mm:ss',
+        L: 'YYYY-MM-DD',
+        LL: 'YYYY-MM-DD HH:mm:ss'
+    },
+    week: {
+        // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
+        dow: 1, // 星期一， 是一个星期的第一天
+        doy: 4 // 1月4日所在的的一周是一年的第一周
+    }
+})
 // 实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件。
 const app = createApp(App)
 
-app.use(createPinia())
+// router
 app.use(router)
+// pinia
+const pinia = createPinia()
+app.use(pinia)
 
 // 注册应用范围内可用的资源
 app.component('SvgIcon', svgIcon)
@@ -30,6 +44,10 @@ app.component('SvgIcon', svgIcon)
 // Avue
 app.use(Avue)
 
-app.use(ElementPlus)
+// element-plus
+app.use(ElementPlus, { locale })
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 
 app.mount('#app') // 挂载应用,#app对应<div id="app"></div>

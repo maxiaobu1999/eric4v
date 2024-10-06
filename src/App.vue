@@ -10,5 +10,3 @@
 <style lang="scss">
 @use '@/assets/app.scss';
 </style>
-<script setup lang="ts">
-</script>

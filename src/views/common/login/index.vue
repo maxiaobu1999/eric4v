@@ -113,9 +113,6 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const login = (verifyResult) => {
-  // if (isSubmit) {
-  //   return
-  // }
   isSubmit = true
   http({
     url: http.adornUrl('/user/login/username'),
@@ -132,7 +129,8 @@ const login = (verifyResult) => {
   }).then(( { data } ) => {
     console.log('+++++++++++' + data.token)
     userStore.userId = data.data.userId
-    cookie.set('Authorization', data.token)
+    userStore.token = data.token
+    cookie.set('authorization', data.token)
     router.replace({ name: 'home' })
   }).catch((err) => {
     console.log(' error +++++++++++' + err)

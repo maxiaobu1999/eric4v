@@ -3,6 +3,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       id: 0,
+      token: '',
       name: '',
       userId: '',
       shopId: '',
@@ -15,6 +16,9 @@ export const useUserStore = defineStore('user', {
     },
     updateName (name) {
       this.name = name
+    },
+    updateToken (token) {
+      this.token = token
     },
     updateMobile (mobile) {
       this.mobile = mobile

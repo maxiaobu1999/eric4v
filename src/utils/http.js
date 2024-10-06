@@ -9,9 +9,10 @@ import {ElMessage} from 'element-plus'
 // 创建axios实例
 const http = axios.create({
     timeout: 1000 * 30,
-    // headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    // }
+    // withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+    }
 })
 
 /**
@@ -19,9 +20,8 @@ const http = axios.create({
  */
 http.interceptors.request.use(
     config => {
-        console.error('[http] Authorization ======', `${cookie.get('Authorization')}`)
-
-        config.headers.Authorization = cookie.get('Authorization') // 请求头带上token
+        console.log('[http] Authorization ======', `${cookie.get('authorization')}`)
+        config.headers.Authorization = cookie.get('authorization') // 请求头带上token
         // // 只针对get方式进行序列化
         // if (config.method === 'get' || config.method === 'GET') {
         //   config.paramsSerializer = function (params) {
@@ -51,7 +51,7 @@ http.interceptors.response.use(
 
         // 00000 请求成功
         if (res.code == '0') {
-            console.error('[http]00000 请求成功 ======')
+            console.log('[http]00000 请求成功 ======')
             return response
             // return Promise.resolve(res)
         }
@@ -96,7 +96,7 @@ http.interceptors.response.use(
     error => {
         // eslint-disable-next-line no-console
         console.log('========请求失败========', '\n', error, '\n', '========请求失败 end========')
-        switch (error.response.status) {
+        switch (error.response.code) {
             case 400:
                 ElMessage({
                     message: error.response.data,

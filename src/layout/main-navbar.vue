@@ -4,19 +4,19 @@
     <nav class="site-navbar">
       <!--左侧-->
       <div
-        class="site-navbar-header"
-        :style="{ 'margin-right': sidebarFold ? 0 : '20px' }"
+          class="site-navbar-header"
+          :style="{ 'margin-right': sidebarFold ? 0 : '20px' }"
       >
         <span
-          v-if="!sidebarFold"
-          class="site-navbar-lg"
+            v-if="!sidebarFold"
+            class="site-navbar-lg"
         >
           eric4j建站后台
         </span>
         <span
-          v-else
-          class="site-navbar-mini"
-          :style="fontCloseSize"
+            v-else
+            class="site-navbar-mini"
+            :style="fontCloseSize"
         >
           Eric4j
         </span>
@@ -24,19 +24,19 @@
       <!--右侧数据-->
       <div class="site-navbar-content">
         <div class="navbar-content-left">
-<!--          折叠按钮-->
+          <!--  折叠按钮-->
           <svg-icon
-            class="left-item"
-            icon-class="icon-zhedie"
-            @click="setSidebarFold"
+              class="left-item"
+              icon-class="icon-zhedie"
+              @click="setSidebarFold"
           />
         </div>
 
         <div class="navbar-content-right">
           <el-dropdown
-            class="content-right-item"
-            :show-timeout="0"
-            placement="bottom"
+              class="content-right-item"
+              :show-timeout="0"
+              placement="bottom"
           >
             <span class="el-dropdown-link">{{ userName }}</span>
             <template #dropdown>
@@ -54,15 +54,15 @@
       </div>
       <!-- 弹窗, 修改密码 -->
       <UpdatePassword
-        v-if="updatePassowrdVisible"
-        ref="updatePassowrdRef"
+          v-if="updatePassowrdVisible"
+          ref="updatePassowrdRef"
       />
     </nav>
   </div>
 </template>
 
 <script setup>
-import { ElMessageBox } from 'element-plus'
+import {ElMessageBox} from 'element-plus'
 import UpdatePassword from './main-navbar-update-password.vue'
 
 const route = useRoute()
@@ -97,7 +97,7 @@ const logoutHandle = () => {
       data: http.adornData()
     }).then(() => {
       clearLoginInfo()
-      router.push({ name: 'login' })
+      router.push({name: 'login'})
     })
   })
 }
@@ -131,6 +131,7 @@ onMounted(() => {
   background-color: #ffffff;
   color: #333333;
   border-bottom: 1px solid #ebedf0;
+
   .site-navbar-header {
     display: flex;
     align-items: center;
@@ -139,16 +140,19 @@ onMounted(() => {
     font-weight: 700;
     height: 50px;
     line-height: 50px;
+
     .site-navbar-lg {
       font-size: 16px;
       word-break: break-all;
       word-wrap: break-word;
     }
+
     .site-navbar-lg,
     .site-navbar-mini {
       margin: 0 5px;
     }
   }
+
   .site-navbar-content {
     flex: 1;
     width: 100%;
@@ -157,8 +161,10 @@ onMounted(() => {
     padding: 0 20px;
     font-size: 18px;
     align-items: center;
+
     .navbar-content-left {
       flex: 1;
+
       .left-item {
         cursor: pointer;
       }

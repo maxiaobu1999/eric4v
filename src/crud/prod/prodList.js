@@ -21,7 +21,7 @@ export const tableOption = {
   },
   column: [{
     label: '产品名字',
-    prop: 'name',
+    prop: 'prodName',
     search: true
   }, {
     label: '商品原价',
@@ -34,7 +34,7 @@ export const tableOption = {
     prop: 'totalStocks'
   }, {
     label: '产品图片',
-    prop: 'pic',
+    prop:  'pic',
     type: 'upload',
     width: 150,
     listType: 'picture-img'
