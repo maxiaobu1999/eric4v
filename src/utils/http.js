@@ -22,6 +22,9 @@ http.interceptors.request.use(
     config => {
         console.log('[http] Authorization ======', `${cookie.get('authorization')}`)
         config.headers.Authorization = cookie.get('authorization') // 请求头带上token
+        config.headers.concat({
+            'authorization': cookie.get('authorization') // 请求头带上token
+        })
         // // 只针对get方式进行序列化
         // if (config.method === 'get' || config.method === 'GET') {
         //   config.paramsSerializer = function (params) {
@@ -66,13 +69,13 @@ http.interceptors.response.use(
         }
         // A00004 未授权
         if (res.code == '4010001') {
-          console.error('[http] router.push ======4010001')
+            console.error('[http] router.push ======4010001')
             clearLoginInfo()
             router.push({name: 'login'}).then(() => {
                 console.error('[http] router.push ====== then')
 
-            },() => {
-              console.error('[http] router.push ====== then1111111')
+            }, () => {
+                console.error('[http] router.push ====== then1111111')
 
             }).catch((err) => {
                 console.error('[http] router.push  error ======', `${err}`)

@@ -1,3 +1,4 @@
+<!--运费模板 商家配送-->
 <template>
   <div class="mod-prod-prod-transport">
     <el-form-item
@@ -97,6 +98,8 @@
 </template>
 
 <script setup>
+import cookie from "vue-cookies";
+
 const props = defineProps({
   modelValue: {
     default: null,
@@ -129,12 +132,15 @@ const transportList = ref([{
 }])
 const getTransportList = () => {
   http({
-    url: http.adornUrl('/shop/transport/list'),
+    url: http.adornUrl('/transport/list'),
     method: 'get',
-    params: http.adornParams({})
+    headers:{
+      'authorization': cookie.get('authorization') // 请求头带上token
+    },
+    // params: http.adornParams({})
   })
     .then(({ data }) => {
-      transportList.value = data
+      transportList.value = data.data
     })
 }
 const transportInfo = ref({
@@ -147,12 +153,12 @@ const changeTransport = (id) => {
     return
   }
   http({
-    url: http.adornUrl(`/shop/transport/info/${transportId.value}`),
+    url: http.adornUrl(`/transport/info/${transportId.value}`),
     method: 'get',
     params: http.adornParams({})
   })
     .then(({ data }) => {
-      transportInfo.value = data
+      transportInfo.value = data.data
     })
 }
 
