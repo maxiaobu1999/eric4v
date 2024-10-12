@@ -1,134 +1,834 @@
 <template>
-  <div class="mod-home">
-    <p>一个基于spring boot、spring oauth2.0、mybatis、redis的轻量级、前后端分离、拥有完整sku和下单流程的完全开源商城</p>
-    <p>&nbsp;</p>
-    <p>该项目仅供学习参考、可供个人学习使用、如需商用联系作者进行授权，否则必将追究法律责任</p>
-    <p>&nbsp;</p>
-    <h2>前言</h2>
-    <p>
-      <code>mall4j商城</code>项目致力于为中小企业打造一个完整、易于维护的开源的电商系统，采用现阶段流行技术实现。后台管理系统包含商品管理、订单管理、运费模板、规格管理、会员管理、运营管理、内容管理、统计报表、权限管理、设置等模块。
-    </p>
-    <p>&nbsp;</p>
-    <h2>技术选型</h2>
-    <figure>
-      <table
-        border="1"
-        cellspacing="0"
-        cellpadding="5px"
-      >
-        <thead>
-          <tr>
-            <th>技术</th>
-            <th>版本</th>
-            <th>说明</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Spring Boot</td>
-            <td>3.0.4</td>
-            <td>MVC核心框架</td>
-          </tr>
-          <tr>
-            <td>MyBatis</td>
-            <td>3.5.0</td>
-            <td>ORM框架</td>
-          </tr>
-          <tr>
-            <td>MyBatisPlus</td>
-            <td>3.5.3.1</td>
-            <td>基于mybatis，使用lambda表达式的</td>
-          </tr>
-          <tr>
-            <td>Swagger-UI</td>
-            <td>4.0.0</td>
-            <td>文档生产工具</td>
-          </tr>
-          <tr>
-            <td>redisson</td>
-            <td>3.19.3</td>
-            <td>对redis进行封装、集成分布式锁等</td>
-          </tr>
-          <tr>
-            <td>hikari</td>
-            <td>3.2.0</td>
-            <td>数据库连接池</td>
-          </tr>
-          <tr>
-            <td>log4j2</td>
-            <td>2.17.2</td>
-            <td>更快的log日志工具</td>
-          </tr>
-          <tr>
-            <td>lombok</td>
-            <td>1.18.8</td>
-            <td>简化对象封装工具</td>
-          </tr>
-          <tr>
-            <td>hutool</td>
-            <td>5.8.15</td>
-            <td>更适合国人的java工具集</td>
-          </tr>
-          <tr>
-            <td>xxl-job</td>
-            <td>2.3.1</td>
-            <td>定时任务</td>
-          </tr>
-        </tbody>
-      </table>
-    </figure>
-    <p>&nbsp;</p>
-    <h2>部署教程</h2>
-    <p>&nbsp;</p>
-    <h3>1.开发环境</h3>
-    <figure>
-      <table
-        border="1"
-        cellspacing="0"
-        cellpadding="5px"
-      >
-        <thead>
-          <tr>
-            <th>工具</th>
-            <th>版本</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>jdk</td>
-            <td>17</td>
-          </tr>
-          <tr>
-            <td>mysql</td>
-            <td>5.7+</td>
-          </tr>
-          <tr>
-            <td>redis</td>
-            <td>3.2+</td>
-          </tr>
-        </tbody>
-      </table>
-    </figure>
-    <h3>2.启动</h3>
-    <ul>
-      <li>推荐使用idea，安装lombok插件，使用idea导入maven项目</li>
-      <li>
-        将shop.sql导入到mysql中，修改
-        <code>application-dev.yml</code>更改 datasource.url、user、password
-      </li>
-      <li>启动redis</li>
-      <li>
-        通过
-        <code>WebApplication</code>启动项目后台接口，
-        <code>ApiApplication</code> 启动项目前端接口
-      </li>
-    </ul>
-    <p>&nbsp;</p>
+  <div class="homeBox">
+    <div class="title">数据总览</div>
+    <div class="topBox">
+      <div class="dataBox">
+        <div class="dataBoxTop">
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="开通APP账号的用户数量"
+              placement="top-start"
+          >
+            <img
+                class="questionMark"
+                src="/src/assets/img/questionMark.png"
+            />
+          </el-tooltip>
+        </div>
+        <div class="dataBoxBottom">
+          <div class="dataBoxBottomImg">
+            <img src="/src/assets/img/icon_yhzcsl.png" />
+          </div>
+          <div class="content">
+            <div class="contentTop">注册用户数量</div>
+            <div class="contentBottom">
+              {{ dataOverview.registerNum }}<span>人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dataBox">
+        <div class="dataBoxTop">
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="APP中所有可用的预付卡数量，不包括已过期的预付卡数量"
+              placement="top-start"
+          >
+            <img
+                class="questionMark"
+                src="/src/assets/img/questionMark.png"
+            />
+          </el-tooltip>
+        </div>
+        <div class="dataBoxBottom">
+          <div class="dataBoxBottomImg">
+            <img src="/src/assets/img/icon_yhzcsl.png" />
+          </div>
+          <div class="content">
+            <div class="contentTop">预付卡数量</div>
+            <div class="contentBottom">
+              {{ dataOverview.usingPreCardsNum }}<span>人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dataBox">
+        <div class="dataBoxTop">
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="通过APP申请预付卡的数量"
+              placement="top-start"
+          >
+            <img
+                class="questionMark"
+                src="/src/assets/img/questionMark.png"
+            />
+          </el-tooltip>
+        </div>
+        <div class="dataBoxBottom">
+          <div class="dataBoxBottomImg">
+            <img src="/src/assets/img/icon_yhzcsl.png" />
+          </div>
+          <div class="content">
+            <div class="contentTop">预付卡申请数量</div>
+            <div class="contentBottom">
+              {{ dataOverview.preCardsApplyNum }}<span>人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dataBox">
+        <div class="dataBoxTop">
+          <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="当天登录过APP的用户数量"
+              placement="top-start"
+          >
+            <img
+                class="questionMark"
+                src="/src/assets/img/questionMark.png"
+            />
+          </el-tooltip>
+        </div>
+        <div class="dataBoxBottom">
+          <div class="dataBoxBottomImg">
+            <img src="/src/assets/img/icon_yhzcsl.png" />
+          </div>
+          <div class="content">
+            <div class="contentTop">当天在线客户</div>
+            <div class="contentBottom">
+              {{ dataOverview.onLineNum }}<span>人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="bottomBox">
+      <div class="title">业务看板</div>
+      <div class="bottomBoxCharts">
+        <div class="canvas">
+          <div class="canvasTitle">
+            <div class="canvasTitleLeft">
+              最近访问趋势
+              <el-tooltip
+                  class="box-item"
+                  effect="dark"
+                  content="统计最近一段时间内（可筛选维度如下）每天的访问人数，同一用户同一天多次登录只计算一次"
+                  placement="top-start"
+              >
+                <img
+                    class="questionMark"
+                    src="/src/assets/img/questionMark.png"
+                />
+              </el-tooltip>
+            </div>
+            <div>
+              <div class="select">
+                <el-select
+                    v-model="valueSelect"
+                    placeholder="请选择"
+                    size="small"
+                    style="width: 240px"
+                    @change="changeDate"
+                >
+                  <el-option
+                      v-for="item in options"
+                      :key="item.configItemId"
+                      :label="item.configItemName"
+                      :value="
+											item.configItemName +
+											',' +
+											item.configItemDesc
+										"
+                  />
+                </el-select>
+              </div>
+            </div>
+          </div>
+          <div
+              id="myEchartsLine"
+              class="lineCss"
+              :style="{ 'min-width': '606px', 'height': '364px' }"
+          ></div>
+        </div>
+        <div class="canvas">
+          <div class="canvasTitle">
+            <div class="canvasTitleLeft">
+              客户数量分布
+              <el-tooltip
+                  class="box-item"
+                  effect="dark"
+                  content="按国家维度统计客户数量的分布情况"
+                  placement="top-start"
+              >
+                <img
+                    class="questionMark"
+                    src="/src/assets/img/questionMark.png"
+                />
+              </el-tooltip>
+            </div>
+          </div>
+          <div
+              id="myEcharts"
+              class="bieCss"
+              :style="{ 'min-width': '487px', 'height': '364px' }"
+          ></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.mod-home {
-  line-height: 1.5;
+<script>
+import * as echarts from "echarts";
+import { onMounted, onUnmounted, ref } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
+
+export default {
+  setup() {
+    const valueSelect = ref("");
+    const changeDate = () => {
+      initChartLine();
+    };
+    const options = ref([]);
+    /// 声明定义一下echart
+    let echart = echarts;
+    onMounted(() => {
+      initChart();
+      initChartLine();
+      getHomePageData();
+      accessTypeFilter();
+    });
+
+    onUnmounted(() => {
+      echart.dispose;
+    });
+    // 基础配置一下Echarts
+    function initChart() {
+      let chart = echart.init(document.getElementById("myEcharts"));
+      // 把配置和数据放这里
+      chart.setOption({
+        tooltip: {
+          trigger: "item",
+        },
+        label: {
+          position: "outside",
+          fontSize:16,
+          color: '#595959',//文字颜色
+        },
+        labelLine: {
+          length: 20,
+          length2: 30,
+        },
+        color: [
+          "rgba(247, 69, 81, 1)",
+          "rgba(255, 141, 26, 1)",
+          "rgba(232, 102, 197, 1)",
+          "rgba(133, 125, 245, 1)",
+          "rgba(255, 213, 46, 1)",
+        ],
+        series: [
+          {
+            type: "pie",
+            radius: ["40%", "70%"],
+            data: [],
+          },
+        ],
+        title:{
+          text: '',
+          textStyle: {//主标题样式
+            fontFamily: 'Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif',
+            fontSize: 16,
+            // fontStyle: 'normal',
+            fontWeight: '400',
+            color:'#595959'
+          },
+          subtextStyle: {//副标题样式
+            color:'#000',
+            fontFamily: 'Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif',
+            fontSize: 16,
+            fontStyle: 'normal',
+            fontWeight: '500',
+          }
+        }
+      });
+      const pieData = ref([]);
+      http({
+        url: http.adornUrl(`/home/pieChart`),
+        method: 'get',
+        params: http.adornParams({})
+      })
+          .then((res) => {
+            if(res){
+              const dataObj = res.data.data
+              let chart = echart.init(
+                  document.getElementById("myEcharts"),
+              );
+              res.data.data.PigChartResList.forEach((item) => {
+                pieData.value.push({
+                  value: item.customerNum,
+                  name: item.country,
+                });
+              });
+              chart.setOption({
+                series: [
+                  {
+                    data: pieData.value, //赋值
+                  },
+                ],
+                title:{
+                  text: '共计（人）',
+                  subtext:res.data.data.total,
+                  left: 'center',
+                  top:'center'
+                },
+                label:{
+                  formatter: function (val) {
+                    return val.name + val.value + '\n' + val.percent+ '%';
+                  },
+
+                }
+              });
+            }
+          })
+          .catch((err) => {
+            ElMessage.error(err);
+          });
+
+      window.onresize = function () {
+        //自适应大小
+        chart.resize();
+      };
+    }
+    // 折线图
+    function initChartLine() {
+      let chart = echart.init(document.getElementById("myEchartsLine"));
+      // 把配置和数据放这里
+      chart.setOption({
+        title: {
+          left: "left",
+        },
+        xAxis: {
+          type: "category",
+          data: [],
+        },
+        yAxis: {
+          type: "value",
+        },
+        lineStyle: {
+          color: "rgba(238, 10, 36, 1)",
+        },
+        symbol: "circle", // 拐点的形状
+        symbolSize: 6,
+        series: [
+          {
+            data: [],
+            type: "line",
+            itemStyle: {
+              //下面是拐点样式配置属性
+              color: "rgba(238, 10, 36, 1)",
+            },
+          },
+        ],
+      });
+      const lineData = ref({});
+      const selectString = valueSelect.value.split(",");
+      if (selectString.length === 2) {
+        const param = {
+          date: selectString[0],
+          type: selectString[1],
+        };
+        http({
+          url: http.adornUrl(`/home/discountChart`),
+          method: 'post',
+          params: http.adornParams(param),
+          data: param
+        }).then((res) => {
+          if(res){
+            lineData.value = res.data.data;
+            chart.setOption({
+              data: lineData.value.dayMonth,
+              series: [
+                {
+                  data: lineData.value.data, //赋值
+                },
+              ],
+            });
+          }
+        });
+      }
+      window.onresize = function () {
+        //自适应大小
+        chart.resize();
+      };
+    }
+    const dataOverview = ref({});
+    function getHomePageData() {
+      http({
+        url: http.adornUrl(`/home/count/`),
+        method: 'get',
+        params: http.adornParams({})
+      })
+          .then((res) => {
+            if(res){
+              dataOverview.value = res.data.data;
+            }
+          })
+          .catch((err) => {
+            ElMessage.error(err);
+          });
+    }
+    function accessTypeFilter() {
+      http({
+        url: http.adornUrl(`/home/accessTypeFilter`),
+        method: 'get',
+        params: http.adornParams({})
+      })
+          .then((res) => {
+            if(res){
+              options.value = res.data.data;
+              if (options.value) {
+                valueSelect.value =
+                    options.value[0].configItemName +
+                    "," +
+                    options.value[0].configItemDesc;
+                initChartLine();
+              }
+            }
+          })
+          .catch((err) => {
+            ElMessage.error(err);
+          });
+    }
+    return {
+      initChart,
+      initChartLine,
+      valueSelect,
+      options,
+      getHomePageData,
+      dataOverview,
+      accessTypeFilter,
+      changeDate,
+    };
+  },
+};
+</script>
+<style scoped lang="less">
+
+
+@media (max-width:1450px){
+  .homeBox{
+    min-width: 1240px;
+    padding: 0 20px;
+    background-color: rgba(245, 247, 250, 1);
+    .title{
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: rgba(0, 0, 0, 1);
+      padding: 24px 0 16px 0;
+    }
+    .topBox{
+      display: flex;
+      .dataBox{
+        margin-right:20px;
+        display: flex;
+        flex-direction: column;
+        min-width: 283px;
+        flex: 1 0 183px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+        .questionMark{
+          width: 30px;
+          float: right;
+          margin: 6px 6px 6px 0;
+          overflow: hidden;
+        }
+        .dataBoxBottom{
+          display: flex;
+          padding: 0 20px 20px 20px;
+          img{
+            width: 54px;
+          }
+          .content{
+            margin-left: 16px;
+            .contentTop{
+              font-size: 18px;
+              font-weight: 400;
+              line-height: 28px;
+              color: rgba(50, 50, 51, 1);
+              margin-bottom: 10px;
+            }
+            .contentBottom{
+              font-size: 34px;
+              font-weight: 700;
+              line-height: 28px;
+              color: rgba(50, 50, 51, 1);
+              span{
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 28px;
+                color: rgba(0, 0, 0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomBoxCharts{
+      display: flex;
+    }
+    .canvas{
+      background-color: #fff;
+      margin-right: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      flex: 1 0 183px;
+      .lineCss{
+        min-width: 616px;
+        height: 364px;
+      }
+      .bieCss{
+        min-width: 497px;
+        height: 364px;
+      }
+      .canvasTitle{
+        display: flex;
+        justify-content: space-between;
+        .canvasTitleLeft{
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 24px;
+          color: rgba(29, 33, 41, 1);
+          .questionMark{
+            width: 30px;
+            float: right;
+            margin: 6px 6px 6px 0;
+            overflow: hidden;
+            float:right;
+            margin-top:-3px;
+            margin-left:4px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1451px) and (max-width:1610px) {
+  .homeBox{
+    padding: 0 20px;
+    background-color: rgba(245, 247, 250, 1);
+    .title{
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: rgba(0, 0, 0, 1);
+      padding: 24px 0 16px 0;
+    }
+    .topBox{
+      display: flex;
+      .dataBox{
+        margin-right:22px;
+        display: flex;
+        flex-direction: column;
+        min-width: 314px;
+        flex: 1 0 183px;
+        border-radius: 8.9px;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+        .questionMark{
+          width: 30px;
+          float: right;
+          margin: 6px 6px 6px 0;
+          overflow: hidden;
+        }
+        .dataBoxBottom{
+          display: flex;
+          padding: 0 25px 25px 25px;
+          .dataBoxBottomImg{
+            margin-top: 10px;
+            img{
+              width: 60px;
+            }
+          }
+
+          .content{
+            margin-left: 9px;
+            .contentTop{
+              font-size: 18px;
+              font-weight: 400;
+              line-height: 28px;
+              color: rgba(50, 50, 51, 1);
+              margin-bottom: 18px;
+            }
+            .contentBottom{
+              font-size: 34px;
+              font-weight: 700;
+              line-height: 28px;
+              color: rgba(50, 50, 51, 1);
+              span{
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 28px;
+                color: rgba(0, 0, 0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomBoxCharts{
+      display: flex;
+    }
+    .canvas{
+      background-color: #fff;
+      margin-right: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      flex: 1 0 183px;
+      .lineCss{
+        min-width: 616px;
+        height: 364px;
+      }
+      .bieCss{
+        min-width: 497px;
+        height: 364px;
+      }
+      .canvasTitle{
+        display: flex;
+        justify-content: space-between;
+        .canvasTitleLeft{
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 24px;
+          color: rgba(29, 33, 41, 1);
+          .questionMark{
+            width: 30px;
+            float: right;
+            margin: 6px 6px 6px 0;
+            overflow: hidden;
+            float:right;
+            margin-top:-3px;
+            margin-left:4px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1611px) and (max-width:1690px) {
+  .homeBox{
+    padding: 0 20px;
+    background-color: rgba(245, 247, 250, 1);
+    .title{
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: rgba(0, 0, 0, 1);
+      padding: 24px 0 16px 0;
+    }
+    .topBox{
+      display: flex;
+      .dataBox{
+        margin-right:22px;
+        display: flex;
+        flex-direction: column;
+        min-width: 314px;
+        flex: 1 0 183px;
+        border-radius: 8.9px;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+        .questionMark{
+          width: 30px;
+          float: right;
+          margin: 6px 6px 6px 0;
+          overflow: hidden;
+        }
+        .dataBoxBottom{
+          display: flex;
+          padding: 0 25px 25px 25px;
+          .dataBoxBottomImg{
+            margin-top: 10px;
+            img{
+              width: 63px;
+            }
+          }
+
+          .content{
+            margin-left: 9px;
+            .contentTop{
+              margin-bottom: 16px;
+              font-size: 21px;
+              font-weight: 400;
+              line-height: 32.67px;
+              color: rgba(50, 50, 51, 1);
+            }
+            .contentBottom{
+              font-size: 39.67px;
+              font-weight: 700;
+              line-height: 32.67px;
+              color: rgba(50, 50, 51, 1);
+              span{
+                font-size: 23.33px;
+                font-weight: 400;
+                line-height: 32.67px;
+                color: rgba(0, 0, 0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomBoxCharts{
+      display: flex;
+    }
+    .canvas{
+      background-color: #fff;
+      margin-right: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      flex: 1 0 183px;
+      .lineCss{
+        min-width: 616px;
+        height: 364px;
+      }
+      .bieCss{
+        min-width: 497px;
+        height: 364px;
+      }
+      .canvasTitle{
+        display: flex;
+        justify-content: space-between;
+        .canvasTitleLeft{
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 24px;
+          color: rgba(29, 33, 41, 1);
+          .questionMark{
+            width: 30px;
+            float: right;
+            margin: 6px 6px 6px 0;
+            overflow: hidden;
+            float:right;
+            margin-top:-3px;
+            margin-left:4px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1691px) and(max-width:1920px) {
+  .homeBox{
+    padding: 0 20px;
+    background-color: rgba(245, 247, 250, 1);
+    .title{
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: rgba(0, 0, 0, 1);
+      padding: 24px 0 16px 0;
+    }
+    .topBox{
+      display: flex;
+      .dataBox{
+        margin-right:22px;
+        display: flex;
+        flex-direction: column;
+        min-width: 314px;
+        flex: 1 0 183px;
+        border-radius: 8.9px;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+        .questionMark{
+          width: 30px;
+          float: right;
+          margin: 6px 6px 6px 0;
+          overflow: hidden;
+        }
+        .dataBoxBottom{
+          display: flex;
+          padding: 0 25px 25px 25px;
+          .dataBoxBottomImg{
+            margin-top: 10px;
+            img{
+              width: 72px;
+            }
+          }
+
+          .content{
+            margin-left: 9px;
+            .contentTop{
+              margin-bottom: 20px;
+              font-size: 24px;
+              font-weight: 400;
+              line-height: 37.33px;
+              color: rgba(50, 50, 51, 1);
+            }
+            .contentBottom{
+              font-size: 45.33px;
+              font-weight: 700;
+              line-height: 37.33px;
+              color: rgba(50, 50, 51, 1);
+              span{
+                font-size: 26.67px;
+                font-weight: 400;
+                line-height: 37.33px;
+                color: rgba(0, 0, 0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomBoxCharts{
+      display: flex;
+    }
+    .canvas{
+      background-color: #fff;
+      margin-right: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 8px  rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      flex: 1 0 183px;
+      .lineCss{
+        min-width: 616px;
+        height: 364px;
+      }
+      .bieCss{
+        min-width: 497px;
+        height: 364px;
+      }
+      .canvasTitle{
+        display: flex;
+        justify-content: space-between;
+        .canvasTitleLeft{
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 24px;
+          color: rgba(29, 33, 41, 1);
+          .questionMark{
+            width: 30px;
+            float: right;
+            margin: 6px 6px 6px 0;
+            overflow: hidden;
+            float:right;
+            margin-top:-3px;
+            margin-left:4px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
