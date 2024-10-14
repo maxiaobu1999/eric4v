@@ -422,7 +422,7 @@ export default {
 <style scoped lang="less">
 
 
-@media (max-width:1450px){
+@media (max-width:12080px){
   .homeBox{
     min-width: 1240px;
     padding: 0 20px;
